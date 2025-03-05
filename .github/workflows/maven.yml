@@ -23,13 +23,3 @@ jobs:
 
       - name: Build and Run Tests with Maven
         run: mvn clean verify --batch-mode
-
-      - name: SonarCloud Analysis
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          mvn sonar:sonar \
-            -Dsonar.projectKey=Juan-Rpenuela_CVDS_Lab5 \
-            -Dsonar.organization=JuanAndres \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=$SONAR_TOKEN
