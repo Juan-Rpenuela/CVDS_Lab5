@@ -13,16 +13,19 @@ public class Reservation {
     private String user;
     private String className;
     private LocalDateTime creationDate;
+    private int priority; // Lab 5
 
     public Reservation() {
     }
 
-    public Reservation(LocalDateTime creationDate,String laboratory, LocalDateTime dateHour, String user, String className) {
+    public Reservation(String laboratory, String idReservation, LocalDateTime dateHour, String user, String className, LocalDateTime creationDate, int priority) {
         this.laboratory = laboratory;
+        this.idReservation = idReservation;
         this.dateHour = dateHour;
         this.user = user;
         this.className = className;
         this.creationDate = creationDate;
+        this.priority = priority;
     }
 
     public void setCreationDate(LocalDateTime creationDate) {
@@ -80,6 +83,10 @@ public class Reservation {
     public void setId(String id){
         this.idReservation = id;
     }
+
+    public int getPriority() { return priority; }
+
+    public void setPriority(int priority) { this.priority = priority; }
 
     @Override
     public String toString() {
