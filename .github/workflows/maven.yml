@@ -30,5 +30,6 @@ jobs:
         run: |
           mvn sonar:sonar \
             -Dsonar.projectKey=Juan-Rpenuela_CVDS_Lab5 \
+            -Dsonar.organization=JuanAndres \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=$SONAR_TOKEN
