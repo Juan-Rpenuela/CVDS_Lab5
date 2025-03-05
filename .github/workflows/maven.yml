@@ -1,25 +1,54 @@
-name: CI - SonarCloud Analysis
+name: CI Workflow
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
+    branches: 
+      - "main"  # Se ejecutará cuando haya un PR hacia la rama main.
+      - "dev"   # Se ejecutará también cuando haya un PR hacia la rama dev.
 
 jobs:
-  sonar:
-    runs-on: ubuntu-latest
-
+  build:
+    runs-on: ubuntu-latest  # El entorno de ejecución para el job 'build'.
+    
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout Repository
+      uses: actions/checkout@v3  # Para clonar el repositorio.
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    
+    - name: Compile with Maven
+      run: mvn clean compile  # Solo ejecuta la fase de compilación.
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
+  test:
+    runs-on: ubuntu-latest  # El entorno de ejecución para el job 'test'.
+    
+    needs: build  # Este job depende del job 'build' para ejecutarse.
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3  # Para clonar el repositorio.
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    
+    - name: Verify with Maven
+      run: mvn verify  # Ejecuta la fase de verificación, sin necesidad de recompilar.
 
-      - name: Build and Run Tests with Maven
-        run: mvn clean verify --batch-mode
+  deploy:
+    runs-on: ubuntu-latest  # El entorno de ejecución para el job 'deploy'.
+    
+    needs: test  # Este job depende del job 'test' para ejecutarse.
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3  # Para clonar el repositorio.
+    
+    - name: Deploy (En construcción...)
+      run: echo "En construcción..."  # Este es un placeholder, puedes agregar el paso de despliegue aquí en el futuro.
