@@ -53,6 +53,6 @@ jobs:
     - name: Azure WebApp Deploy
       uses: azure/webapps-deploy@v2
       with:
-        app-name: "reservas-lab-app"
+        app-name: "labinfoweb"
         package: "target/ReservasLab-0.0.1-SNAPSHOT.jar"
 
