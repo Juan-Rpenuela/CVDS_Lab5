@@ -50,5 +50,9 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v3  # Para clonar el repositorio.
     
-    - name: Deploy (En construcción...)
-      run: echo "En construcción..."  # Este es un placeholder, puedes agregar el paso de despliegue aquí en el futuro.
+    - name: Azure WebApp Deploy
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: "reservas-lab-app"
+        package: "target/ReservasLab-0.0.1-SNAPSHOT.jar"
+
