@@ -12,22 +12,34 @@ public class ReservationController {
 
     private ReservationService reservationService;
 
+    @DeleteMapping("/delete/all")
+    public String deleteAllReservations() {
+        reservationService.deleteAllReservations();
+        return "Todas las reservas han sido eliminadas.";
+    }
+
+    @PostMapping("/post/generate-random")
+    public String generateRandomReservations() {
+        reservationService.generateRandomReservations();
+        return "Reservas aleatorias generadas exitosamente.";
+    }
+
     public ReservationController(ReservationService reservationService) {
         this.reservationService = reservationService;
     }
 
     @GetMapping("/get/all")
-    public List<Reservation> consultarReservas() {
+    public List<Reservation> getAllReservations() {
         return reservationService.getAllReservations();
     }
 
     @PostMapping("/post/")
-    public Reservation reservarLaboratorio(@RequestBody Reservation reserva) {
+    public Reservation saveReservation(@RequestBody Reservation reserva) {
         return reservationService.saveReservation(reserva);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void cancelarReserva(@PathVariable String id) {
+    public void deleteReservation(@PathVariable String id) {
         reservationService.deleteReservation(id);
     }
 
