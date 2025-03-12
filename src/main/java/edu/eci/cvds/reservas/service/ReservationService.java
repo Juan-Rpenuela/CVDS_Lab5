@@ -15,6 +15,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 
@@ -55,9 +56,16 @@ public class ReservationService {
         reservationRepository.deleteAll();
     }
 
+
     // POST: Lab 5 New Feature
-    public void generateRandomReservations() {
-        int numReservations = random.nextInt(901) + 100; // Genera entre 100 y 1000 reservas
+    public void generateRandomReservations(int quantity) {
+        int numReservations;
+        if (quantity > 0) {
+            numReservations = quantity;
+        } else {
+            numReservations = random.nextInt(901) + 100; // Genera entre 100 y 1000 reservas
+        }
+
         List<Reservation> reservations = new ArrayList<>();
 
         for (int i = 0; i < numReservations; i++) {
@@ -75,6 +83,18 @@ public class ReservationService {
         }
 
         reservationRepository.saveAll(reservations);
+    }
+
+    public Optional<Reservation> getReservationById(String id) {
+        return reservationRepository.findById(id);
+    }
+
+    public Long getReservationCount() {
+        return reservationRepository.count();
+    }
+
+    public List<Reservation> saveMultipleReservations(List<Reservation> reservations) {
+        return reservationRepository.saveAll(reservations);
     }
 
 
